@@ -40,7 +40,6 @@ public class ExcelParser {
                 Iterator cells = row.cellIterator();
                 while (cells.hasNext()) {
                     cell = (XSSFCell) cells.next();
-
                     if (cell.getCellTypeEnum() == CellType.STRING) {
                         System.out.print(cell.getStringCellValue() + " ");
                     } else if (cell.getCellTypeEnum() == CellType.NUMERIC) {
