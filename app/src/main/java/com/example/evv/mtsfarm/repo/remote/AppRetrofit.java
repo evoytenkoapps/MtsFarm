@@ -8,11 +8,11 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-public class AppRetrofitFactory {
+public class AppRetrofit {
     private final static String TAG = "RetrofitFactory";
     private static Retrofit mRetrofit;
 
-    private AppRetrofitFactory() {
+    private AppRetrofit() {
     }
 
     public static ApiGetFile getRetrofitService() {
@@ -25,7 +25,7 @@ public class AppRetrofitFactory {
     private static void init() {
         mRetrofit = new Retrofit.Builder()
                 //TODO изменить на билдконфиг
-                .baseUrl("http://drop5.dropmefile.com/dl/7Qy7F")
+                .baseUrl("http://drop5.dropmefile.com/dl/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(
                         new OkHttpClient.Builder()
@@ -33,7 +33,7 @@ public class AppRetrofitFactory {
                                 .writeTimeout(20, TimeUnit.SECONDS)
                                 .readTimeout(30, TimeUnit.SECONDS)
                                 .retryOnConnectionFailure(true)
-                                //.addInterceptor(LoggingInterceptor.create())
+                                .addInterceptor(LoggingInterceptor.create())
                                 .build())
                 .build();
 

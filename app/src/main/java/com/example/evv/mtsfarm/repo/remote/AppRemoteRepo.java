@@ -5,12 +5,13 @@ import android.util.Log;
 import com.example.evv.mtsfarm.App;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.repo.FarmRepository;
+import com.example.evv.mtsfarm.utils.ExcelParser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -21,19 +22,17 @@ import retrofit2.Response;
 
 public class AppRemoteRepo implements FarmRepository {
     private final String TAG = this.getClass().getSimpleName();
-    private String FILE_NAME = "Data.xlsx";
+    private final String FILE_NAME = "Data.xlsx";
+    private final String PATH = "7Qy7F";
 
     @Override
+
     public Single<List<Cow>> getCows() {
-        AppRetrofitFactory.getRetrofitService().getFile()
+        return AppRetrofit.getRetrofitService().getFile(PATH)
                 .subscribeOn(Schedulers.io())
                 .flatMap(response -> saveToDiskRx(response))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> Log.d(TAG, "Done"), throwable -> {
-                });
+                .flatMap(file -> parseFile(file));
 
-
-        return null;
     }
 
 
@@ -56,6 +55,15 @@ public class AppRemoteRepo implements FarmRepository {
             }
         });
     }
+
+    private Single<List<Cow>> parseFile(final File file) {
+        return Single.create(emitter -> {
+//            ExcelParser excelParser = new ExcelParser();
+//            excelParser.setInputFile(file.getAbsolutePath());
+            emitter.onSuccess(new ArrayList<Cow>());
+        });
+    }
+
 
 //    private String getFilePath() {
 //
