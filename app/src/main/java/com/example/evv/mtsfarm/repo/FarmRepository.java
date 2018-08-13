@@ -7,5 +7,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 public interface FarmRepository {
+
     Single<List<Cow>> getCows();
+    
 }
