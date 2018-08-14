@@ -12,12 +12,7 @@ import retrofit2.http.Url;
 
 public interface ApiGetFile {
 
-    @GET("{path}")
-    Single<Response<ResponseBody>> getBase(@Path("path") String path);
-
     @Streaming
-    @Header("Host","drop5.dropmefile.com")
-    @Header()
     @GET()
     Single<Response<ResponseBody>> getFile(@Url String url);
 }
