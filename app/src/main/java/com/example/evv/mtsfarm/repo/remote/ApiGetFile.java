@@ -15,4 +15,5 @@ public interface ApiGetFile {
     @Streaming
     @GET()
     Single<Response<ResponseBody>> getFile(@Url String url);
+    
 }

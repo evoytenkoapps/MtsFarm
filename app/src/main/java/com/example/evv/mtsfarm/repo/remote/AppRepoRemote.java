@@ -23,9 +23,8 @@ import retrofit2.Response;
 
 public class AppRepoRemote implements FarmRepository {
     private final String TAG = this.getClass().getSimpleName();
-    private final String FILE_NAME = "Data.xlsx";
-    private final String PATH = "7Qy7F";
-    private final String DOWNLOAD_URL = "https://www.mango-office.ru/upload/support/data/Data.xlsx";
+    private final String FILE_NAME = "Data.xls";
+    private final String DOWNLOAD_URL = "https://www.mango-office.ru/upload/support/data/Data2003.xls";
 
     @Override
 
@@ -41,7 +40,6 @@ public class AppRepoRemote implements FarmRepository {
         return Single.create(emitter -> {
             try {
                 File file = new File(App.getContext().getFilesDir(), FILE_NAME);
-
                 BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
                 bufferedSink.writeAll(response.body().source());
                 bufferedSink.close();
@@ -63,23 +61,4 @@ public class AppRepoRemote implements FarmRepository {
             excelParser.read(file);
         });
     }
-
-
-//    private String getFilePath() {
-//
-//        if (!externalStorageAvailable()) {
-//            getView().showToast(R.string.call_record_storage_unavailable);
-//        }
-//
-//        String path = ((AppCallRecordFragment) getView()).getActivity().getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath();
-//        Log.d(TAG, "Storage available: " + externalStorageAvailable());
-//        Log.d(TAG, "path: " + path);
-//        String fileName = mStorage.getRecordInfo().get(0) + " " +
-//                mStorage.getRecordInfo().get(1) + " " +
-//                mStorage.getRecordInfo().get(2) +
-//                ".mp3";
-//        return path + "/" + fileName;
-//    }
-
-
 }
