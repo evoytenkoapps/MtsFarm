@@ -1,21 +1,15 @@
 package com.example.evv.mtsfarm.repo.remote;
 
-import android.util.Log;
-
 import com.example.evv.mtsfarm.App;
-import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.FarmRepository;
+import com.example.evv.mtsfarm.repo.remote.retrofit.AppRetrofit;
 import com.example.evv.mtsfarm.utils.ExcelParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
@@ -28,11 +22,10 @@ public class AppRepoRemote implements FarmRepository {
 
     @Override
 
-    public Single<List<Cow>> getCows() {
-
+    public Single<Storage> getData() {
         return AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
                 .flatMap(this::saveToDiskRx)
-                .flatMap(this::parseFile);
+                .flatMap(this::parseExcel);
     }
 
 
@@ -45,7 +38,6 @@ public class AppRepoRemote implements FarmRepository {
                 bufferedSink.close();
                 if (!emitter.isDisposed()) {
                     emitter.onSuccess(file);
-
                 }
 
             } catch (IOException e) {
@@ -55,10 +47,18 @@ public class AppRepoRemote implements FarmRepository {
         });
     }
 
-    private Single<List<Cow>> parseFile(File file) {
+    private Single<Storage> parseExcel(File file) {
         return Single.create(emitter -> {
-            ExcelParser excelParser = new ExcelParser();
-            excelParser.read(file);
+            try {
+                ExcelParser excelParser = new ExcelParser(file);
+                Storage data = excelParser.parseData();
+                if (!emitter.isDisposed()) {
+                    emitter.onSuccess(data);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                emitter.onError(e);
+            }
         });
     }
 }

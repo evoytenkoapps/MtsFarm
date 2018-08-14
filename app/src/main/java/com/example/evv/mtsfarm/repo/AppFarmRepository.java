@@ -2,13 +2,13 @@ package com.example.evv.mtsfarm.repo;
 
 import android.support.annotation.NonNull;
 
-import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.local.AppLocalRepo;
 import com.example.evv.mtsfarm.repo.remote.AppRepoRemote;
 
-import java.util.List;
-
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.internal.operators.observable.ObservableElementAt;
 
 
 public class AppFarmRepository implements FarmRepository {
@@ -23,8 +23,10 @@ public class AppFarmRepository implements FarmRepository {
     }
 
     @Override
-    public Single<List<Cow>> getCows() {
-        return mRemote.getCows();
+    public Single<Storage> getData() {
+
+        return Single.concat(mLocal.getData(), mRemote.getData());
+
     }
 
     public static FarmRepository getInstance(@NonNull AppLocalRepo local, @NonNull AppRepoRemote remote) {

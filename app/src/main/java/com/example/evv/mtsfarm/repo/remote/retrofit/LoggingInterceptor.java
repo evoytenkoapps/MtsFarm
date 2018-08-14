@@ -1,4 +1,4 @@
-package com.example.evv.mtsfarm.repo.remote;
+package com.example.evv.mtsfarm.repo.remote.retrofit;
 
 import android.support.annotation.NonNull;
 

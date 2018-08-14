@@ -3,19 +3,17 @@ package com.example.evv.mtsfarm.ui;
 import android.util.Log;
 
 import com.example.evv.mtsfarm.App;
-import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.repo.FarmRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class AppPresenter implements ContractMain.Presenter {
     private final String TAG = this.getClass().getSimpleName();
     private ContractMain.View mView = null;
     private FarmRepository mRepo = App.getRepo();
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void attachView(BaseView view) {
@@ -29,17 +27,19 @@ public class AppPresenter implements ContractMain.Presenter {
 
     @Override
     public void destroy() {
-
+        mCompositeDisposable.dispose();
     }
 
 
     @Override
     public void init() {
-        List<Cow> result = new ArrayList<>();
-        mRepo.getCows()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> Log.d(TAG, "Done"), throwable -> {
-                });
+        mCompositeDisposable.add(
+                mRepo.getData()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                data -> {
+                                    Log.d(TAG, data.toString());
+                                }, Throwable::printStackTrace));
     }
 }
