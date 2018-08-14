@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.repo.local.AppLocalRepo;
-import com.example.evv.mtsfarm.repo.remote.AppRemoteRepo;
+import com.example.evv.mtsfarm.repo.remote.AppRepoRemote;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class AppFarmRepository implements FarmRepository {
         return mRemote.getCows();
     }
 
-    public static FarmRepository getInstance(@NonNull AppLocalRepo local, @NonNull AppRemoteRepo remote) {
+    public static FarmRepository getInstance(@NonNull AppLocalRepo local, @NonNull AppRepoRemote remote) {
         if (INSTANCE == null)
             return INSTANCE = new AppFarmRepository(local, remote);
         return INSTANCE;

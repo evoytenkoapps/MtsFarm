@@ -21,7 +21,7 @@ import okio.BufferedSink;
 import okio.Okio;
 import retrofit2.Response;
 
-public class AppRemoteRepo implements FarmRepository {
+public class AppRepoRemote implements FarmRepository {
     private final String TAG = this.getClass().getSimpleName();
     private final String FILE_NAME = "Data.xlsx";
     private final String PATH = "7Qy7F";
@@ -45,9 +45,9 @@ public class AppRemoteRepo implements FarmRepository {
                 BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
                 bufferedSink.writeAll(response.body().source());
                 bufferedSink.close();
-
                 if (!emitter.isDisposed()) {
                     emitter.onSuccess(file);
+
                 }
 
             } catch (IOException e) {
@@ -57,11 +57,10 @@ public class AppRemoteRepo implements FarmRepository {
         });
     }
 
-    private Single<List<Cow>> parseFile(final File file) {
+    private Single<List<Cow>> parseFile(File file) {
         return Single.create(emitter -> {
-//            ExcelParser excelParser = new ExcelParser();
-//            excelParser.setInputFile(file.getAbsolutePath());
-            emitter.onSuccess(new ArrayList<Cow>());
+            ExcelParser excelParser = new ExcelParser();
+            excelParser.read(file);
         });
     }
 

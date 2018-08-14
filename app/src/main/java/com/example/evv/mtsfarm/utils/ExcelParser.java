@@ -1,5 +1,7 @@
 package com.example.evv.mtsfarm.utils;
 
+import com.example.evv.mtsfarm.App;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -11,18 +13,12 @@ import jxl.read.biff.BiffException;
 
 public class ExcelParser {
 
+    private final String FILE_NAME = "Data.xlsx";
 
-    private String inputFile;
-
-    public void setInputFile(String inputFile) {
-        this.inputFile = inputFile;
-    }
-
-    public void read() throws IOException {
-        File inputWorkbook = new File(inputFile);
+    public void read(File file) throws IOException {
         Workbook w;
         try {
-            w = Workbook.getWorkbook(inputWorkbook);
+            w = Workbook.getWorkbook(file);
             // Get the first sheet
             Sheet sheet = w.getSheet(0);
             // Loop over first 10 column and lines
