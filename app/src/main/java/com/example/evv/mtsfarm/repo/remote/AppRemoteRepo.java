@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -24,15 +25,17 @@ public class AppRemoteRepo implements FarmRepository {
     private final String TAG = this.getClass().getSimpleName();
     private final String FILE_NAME = "Data.xlsx";
     private final String PATH = "7Qy7F";
+    private final String DOWNLOAD_URL = "http://drop5.dropmefile.com/dl/7Qy7F";
 
     @Override
 
     public Single<List<Cow>> getCows() {
-        return AppRetrofit.getRetrofitService().getFile(PATH)
-                .subscribeOn(Schedulers.io())
-                .flatMap(response -> saveToDiskRx(response))
-                .flatMap(file -> parseFile(file));
 
+        return AppRetrofit.getRetrofitService().getBase(PATH)
+                .flatMap(res -> AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
+                )
+                .flatMap(this::saveToDiskRx)
+                .flatMap(this::parseFile);
     }
 
 

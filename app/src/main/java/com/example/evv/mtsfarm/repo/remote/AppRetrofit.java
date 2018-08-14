@@ -2,8 +2,11 @@ package com.example.evv.mtsfarm.repo.remote;
 
 import android.util.Log;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -11,6 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class AppRetrofit {
     private final static String TAG = "RetrofitFactory";
     private static Retrofit mRetrofit;
+    //private static CookieManager cookieManager;
 
     private AppRetrofit() {
     }
@@ -23,12 +27,17 @@ public class AppRetrofit {
     }
 
     private static void init() {
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+
         mRetrofit = new Retrofit.Builder()
                 //TODO изменить на билдконфиг
-                .baseUrl("http://drop5.dropmefile.com/dl/")
+                .baseUrl("https://dropmefiles.com/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(
                         new OkHttpClient.Builder()
+                                .cookieJar(new JavaNetCookieJar(cookieManager))
                                 .connectTimeout(20, TimeUnit.SECONDS)
                                 .writeTimeout(20, TimeUnit.SECONDS)
                                 .readTimeout(30, TimeUnit.SECONDS)
