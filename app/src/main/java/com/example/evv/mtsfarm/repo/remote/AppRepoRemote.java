@@ -9,6 +9,7 @@ import com.example.evv.mtsfarm.utils.ExcelParser;
 import java.io.File;
 import java.io.IOException;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
@@ -22,9 +23,10 @@ public class AppRepoRemote implements FarmRepository {
 
     @Override
 
-    public Single<Storage> getData() {
+    public Observable<Storage> getData() {
         return AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
                 .flatMap(this::saveToDiskRx)
+                .toObservable()
                 .flatMap(this::parseExcel);
     }
 
@@ -47,13 +49,14 @@ public class AppRepoRemote implements FarmRepository {
         });
     }
 
-    private Single<Storage> parseExcel(File file) {
-        return Single.create(emitter -> {
+    private Observable<Storage> parseExcel(File file) {
+        return Observable.create(emitter -> {
             try {
                 ExcelParser excelParser = new ExcelParser(file);
                 Storage data = excelParser.parseData();
                 if (!emitter.isDisposed()) {
-                    emitter.onSuccess(data);
+                    emitter.onNext(data);
+                    emitter.onComplete();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
