@@ -7,10 +7,8 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class AppLocalRepo implements FarmRepository {
-
     @Override
     public Observable<Storage> getData() {
         return Observable.just(new Storage());
     }
-
 }
