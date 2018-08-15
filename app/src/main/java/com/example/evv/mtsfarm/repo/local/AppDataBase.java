@@ -7,5 +7,7 @@ import com.example.evv.mtsfarm.data.Cow;
 
 @Database(entities = {Cow.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
+
     public abstract AppDao appDao();
+
 }

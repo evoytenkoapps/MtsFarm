@@ -1,6 +1,7 @@
 package com.example.evv.mtsfarm.repo.remote;
 
 import com.example.evv.mtsfarm.App;
+import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.FarmRepository;
 import com.example.evv.mtsfarm.repo.local.AppDataBase;
@@ -9,6 +10,7 @@ import com.example.evv.mtsfarm.utils.ExcelParser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -24,11 +26,12 @@ public class AppRepoRemote implements FarmRepository {
 
     @Override
 
-    public Observable<Storage> getData() {
+    public Observable<List<Cow>> getCows() {
         return AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
                 .flatMap(this::saveToDiskRx)
                 .toObservable()
-                .flatMap(this::parseExcel);
+                .flatMap(this::parseExcel)
+                .map(Storage::getCows);
     }
 
 

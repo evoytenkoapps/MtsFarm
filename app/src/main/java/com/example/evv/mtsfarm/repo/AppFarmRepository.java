@@ -1,19 +1,16 @@
 package com.example.evv.mtsfarm.repo;
 
 import android.support.annotation.NonNull;
-import android.text.format.DateUtils;
 
+import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Storage;
-import com.example.evv.mtsfarm.repo.local.AppDataBase;
 import com.example.evv.mtsfarm.repo.local.AppLocalRepo;
 import com.example.evv.mtsfarm.repo.remote.AppRepoRemote;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.internal.operators.observable.ObservableBuffer;
-import io.reactivex.internal.operators.observable.ObservableElementAt;
 
 
 public class AppFarmRepository implements FarmRepository {
@@ -35,16 +32,15 @@ public class AppFarmRepository implements FarmRepository {
     }
 
     @Override
-    public Observable<Storage> getData() {
-        return Observable.concat(mLocal.getData(), mRemote.getData())
-                .first(new Storage())
-                .doOnSuccess(storage -> mLocal.addCows(storage.getCows()))
+    public Observable<List<Cow>> getCows() {
+        return Observable.concat(mLocal.getCows(), mRemote.getCows())
+                .first(new ArrayList<Cow>())
                 .toObservable();
     }
 
 
 //    private Observable<Storage> getRemote() {
-//        return mRemote.getData()
+//        return mRemote.getCows()
 //                .flatMap(storage -> mLocal.addCows(storage.getCows()))
 //    }
 

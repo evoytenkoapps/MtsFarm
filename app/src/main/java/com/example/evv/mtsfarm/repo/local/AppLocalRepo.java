@@ -8,15 +8,17 @@ import com.example.evv.mtsfarm.repo.FarmRepository;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class AppLocalRepo implements FarmRepository {
-    AppDataBase mDb = App.getDatabase();
 
     @Override
-    public Observable<Storage> getData() {
-        return mDb.appDao().getCows().toObservable();
+    public Observable<List<Cow>> getCows() {
+        return App.getDatabase().appDao().getCows()
+                //.takeWhile(data -> data.size() != 0)
+                .toObservable();
     }
 
 //    public void addCows(List<Cow> cows) {
@@ -26,9 +28,10 @@ public class AppLocalRepo implements FarmRepository {
 
     public Observable addCows(List<Cow> cows) {
         return Observable.fromCallable((Callable<Void>) () -> {
-            mDb.appDao().insert(cows);
+            App.getDatabase().appDao().insert(cows);
             return null;
         });
     }
+
 
 }

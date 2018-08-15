@@ -34,12 +34,12 @@ public class AppPresenter implements ContractMain.Presenter {
     @Override
     public void init() {
         mCompositeDisposable.add(
-                mRepo.getData()
+                mRepo.getCows()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 data -> {
-                                    Log.d(TAG, data.toString());
+                                    Log.d(TAG, "Result " + data.toString());
                                 }, Throwable::printStackTrace));
     }
 }

@@ -20,9 +20,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        mDataBase = Room.databaseBuilder(this, AppDataBase.class, "database").build();
         mRepo = AppFarmRepository.getInstance(new AppLocalRepo(), new AppRepoRemote());
-        mDataBase = Room.databaseBuilder(this, AppDataBase.class, "database")
-                .build();
+
     }
 
     public static Context getContext() {
@@ -36,4 +36,9 @@ public class App extends Application {
     public static AppDataBase getDatabase() {
         return mDataBase;
     }
+
+
+
+
+
 }
