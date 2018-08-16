@@ -1,4 +1,4 @@
-package com.example.evv.mtsfarm.repo.local;
+package com.example.evv.mtsfarm.repo.local.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -15,16 +15,12 @@ import io.reactivex.Flowable;
 
 
 @Dao
-public interface AppDao {
-
+public interface CowDao {
     @Query("SELECT * FROM cow")
     Flowable<List<Cow>> getCows();
 
     @Insert
     void addCows(List<Cow> cow);
-
-    @Insert
-    void addMilking(List<Milking> milking);
 
     @Update
     void update(Cow cow);

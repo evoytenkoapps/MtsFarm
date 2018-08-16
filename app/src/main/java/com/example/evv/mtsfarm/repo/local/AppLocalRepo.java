@@ -1,27 +1,25 @@
 package com.example.evv.mtsfarm.repo.local;
 
-import android.arch.persistence.room.Dao;
 import android.util.Log;
 
 import com.example.evv.mtsfarm.App;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.FarmRepository;
+import com.example.evv.mtsfarm.repo.local.dao.CowDao;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 public class AppLocalRepo implements FarmRepository {
 
-    private AppDao dao = App.getDatabase().appDao();
+    private CowDao dao = App.getDatabase().cowDao();
     private final String TAG = this.getClass().getSimpleName();
 
     public Observable<List<Cow>> getCows() {
-        return App.getDatabase().appDao().getCows()
+        return App.getDatabase().cowDao().getCows()
                 .toObservable();
     }
 
@@ -51,7 +49,7 @@ public class AppLocalRepo implements FarmRepository {
                                            @Override
                                            public Storage call() throws Exception {
                                                dao.addCows(storage.getCows());
-                                               dao.addMilking(storage.getMilkings());
+                                               App.getDatabase().milkingDao().addMilking(storage.getMilkings());
                                                return null;
                                            }
                                        }
