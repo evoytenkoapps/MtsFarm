@@ -7,9 +7,11 @@ import java.util.Date;
 
 @Entity
 public class Milking {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int key;
+
     public int id;
+
     public String data;
     public int weight;
 }

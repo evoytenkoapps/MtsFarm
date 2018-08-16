@@ -50,7 +50,7 @@ public class AppLocalRepo implements FarmRepository {
                                            public Storage call() throws Exception {
                                                dao.addCows(storage.getCows());
                                                App.getDatabase().milkingDao().addMilking(storage.getMilkings());
-                                               return null;
+                                               return storage;
                                            }
                                        }
 

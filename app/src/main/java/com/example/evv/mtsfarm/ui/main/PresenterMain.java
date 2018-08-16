@@ -23,11 +23,11 @@ public class PresenterMain extends AppBasePresenter implements ContractMain.Pres
 
     @Override
     public void getData() {
-        mRepo.clearDb()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(v -> {
-                }, throwable -> throwable.printStackTrace());
+//        mRepo.clearDb()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(v -> {
+//                }, throwable -> throwable.printStackTrace());
 
 
         addToDisp(
