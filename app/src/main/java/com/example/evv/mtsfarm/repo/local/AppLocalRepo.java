@@ -1,5 +1,6 @@
 package com.example.evv.mtsfarm.repo.local;
 
+import android.arch.persistence.room.Dao;
 import android.util.Log;
 
 import com.example.evv.mtsfarm.App;
@@ -16,23 +17,28 @@ import io.reactivex.Single;
 
 public class AppLocalRepo implements FarmRepository {
 
-    @Override
+    private AppDao dao = App.getDatabase().appDao();
+    private final String TAG = this.getClass().getSimpleName();
+
     public Observable<List<Cow>> getCows() {
         return App.getDatabase().appDao().getCows()
                 .toObservable();
     }
 
-//    public void addCows(List<Cow> cows) {
-//        mDb.appDao().insert(cows);
-//
-//    }
-
-    public Observable<List<Cow>> addCows(List<Cow> cows) {
+    @Override
+    public Observable clearDb() {
         return Observable.fromCallable(() -> {
-            App.getDatabase().appDao().insert(cows);
-            return cows;
+            Log.d(TAG, "delete cows");
+            dao.deleteCows();
+            return null;
         });
     }
 
+    public Observable<List<Cow>> addCows(List<Cow> cows) {
+        return Observable.fromCallable(() -> {
+            dao.insert(cows);
+            return cows;
+        });
+    }
 
 }

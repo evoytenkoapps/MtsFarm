@@ -28,4 +28,8 @@ public interface AppDao {
     @Delete
     void delete(Cow cow);
 
+    @Query("DELETE FROM cow")
+    void deleteCows();
+
+
 }

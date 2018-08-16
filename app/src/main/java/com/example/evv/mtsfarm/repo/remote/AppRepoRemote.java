@@ -19,12 +19,10 @@ import okio.BufferedSink;
 import okio.Okio;
 import retrofit2.Response;
 
-public class AppRepoRemote implements FarmRepository {
+public class AppRepoRemote {
     private final String TAG = this.getClass().getSimpleName();
     private final String FILE_NAME = "Data.xls";
     private final String DOWNLOAD_URL = "https://www.mango-office.ru/upload/support/data/Data2003.xls";
-
-    @Override
 
     public Observable<List<Cow>> getCows() {
         return AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
@@ -32,6 +30,10 @@ public class AppRepoRemote implements FarmRepository {
                 .toObservable()
                 .flatMap(this::parseExcel)
                 .map(Storage::getCows);
+    }
+
+    public Observable clearDb() {
+        return null;
     }
 
 

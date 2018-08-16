@@ -33,10 +33,6 @@ public class AppFarmRepository implements FarmRepository {
 
     @Override
     public Observable<List<Cow>> getCows() {
-//        return Observable.concat(mLocal.getCows(), mRemote.getCows())
-//                .first(new ArrayList<Cow>())
-//                .toObservable();
-
         return mLocal.getCows()
                 .flatMap(data -> {
                     if (data.size() == 0)
@@ -46,11 +42,9 @@ public class AppFarmRepository implements FarmRepository {
                 });
     }
 
-
-//    private Observable<Storage> getRemote() {
-//        return mRemote.getCows()
-//                .flatMap(storage -> mLocal.addCows(storage.getCows()))
-//    }
-
+    @Override
+    public Observable clearDb() {
+        return mLocal.clearDb();
+    }
 
 }
