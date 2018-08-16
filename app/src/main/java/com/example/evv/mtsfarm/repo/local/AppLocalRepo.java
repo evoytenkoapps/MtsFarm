@@ -46,11 +46,18 @@ public class AppLocalRepo implements FarmRepository {
         );
     }
 
-    public Observable<List<Cow>> addCows(List<Cow> cows) {
-        return Observable.fromCallable(() -> {
-            dao.insert(cows);
-            return cows;
-        });
+    public Observable<Storage> addCows(Storage storage) {
+        return Observable.fromCallable(new Callable<Storage>() {
+                                           @Override
+                                           public Storage call() throws Exception {
+                                               dao.addCows(storage.getCows());
+                                               dao.addMilking(storage.getMilkings());
+                                               return null;
+                                           }
+                                       }
+
+
+        );
     }
 
 }

@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.data.Milking;
 
 import java.util.List;
 
@@ -20,7 +21,10 @@ public interface AppDao {
     Flowable<List<Cow>> getCows();
 
     @Insert
-    void insert(List<Cow> cow);
+    void addCows(List<Cow> cow);
+
+    @Insert
+    void addMilking(List<Milking> milking);
 
     @Update
     void update(Cow cow);
@@ -30,6 +34,4 @@ public interface AppDao {
 
     @Query("DELETE FROM cow")
     void deleteCows();
-
-
 }
