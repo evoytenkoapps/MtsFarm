@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
@@ -22,6 +24,7 @@ public class FragmentMain extends Fragment implements ContractMain.View {
     private List<Cow> mData;
     private MyTableAdapter mAdapter;
     final static String[] TABLE_HEADERS = {"ID", "ИМЯ", "СТАДО"};
+    ProgressBar mPb;
 
     public FragmentMain() {
     }
@@ -31,7 +34,6 @@ public class FragmentMain extends Fragment implements ContractMain.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         TableView tableView = (TableView) rootView.findViewById(R.id.tableView);
-        //tableView.setColumnCount(3);
 
         mData = new ArrayList<Cow>();
         mAdapter = new MyTableAdapter(getContext(), mData);
@@ -48,6 +50,7 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         headerAdapter.setTextSize(10);
         tableView.setHeaderAdapter(headerAdapter);
 
+        mPb = rootView.findViewById(R.id.pb_main);
 
         return rootView;
     }
@@ -64,7 +67,12 @@ public class FragmentMain extends Fragment implements ContractMain.View {
 
     @Override
     public void showLoading() {
+        mPb.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideLoading() {
+        mPb.setVisibility(View.GONE);
     }
 
     @Override
@@ -73,8 +81,8 @@ public class FragmentMain extends Fragment implements ContractMain.View {
     }
 
     @Override
-    public void showToast() {
-
+    public void showToast(int resId) {
+        Toast.makeText(getActivity(), resId, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -89,5 +97,27 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showError(int resId) {
+        hideLoading();
+        showToast(resId);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.attachView(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.detouchView();
+    }
 }

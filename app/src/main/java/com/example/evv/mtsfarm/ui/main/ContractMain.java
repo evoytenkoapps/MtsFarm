@@ -12,9 +12,9 @@ public interface ContractMain {
 
         void showLoading();
 
-        void showInternet();
+        void hideLoading();
 
-        void showToast();
+        void showInternet();
 
         void getData();
 

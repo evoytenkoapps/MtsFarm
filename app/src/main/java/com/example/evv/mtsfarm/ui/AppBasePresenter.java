@@ -13,7 +13,7 @@ public class AppBasePresenter implements BasePresenter {
     }
 
     @Override
-    public void detouchView(BaseView view) {
+    public void detouchView() {
         mView = null;
     }
 
@@ -30,6 +30,13 @@ public class AppBasePresenter implements BasePresenter {
     @Override
     public BaseView getBaseView() {
         return mView;
+    }
+
+    @Override
+    public void handleError(Throwable throwable, int resId) {
+        throwable.printStackTrace();
+        if (mView != null)
+            mView.showError(resId);
     }
 
 }
