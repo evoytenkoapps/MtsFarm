@@ -43,7 +43,7 @@ public class AppFarmRepository implements FarmRepository {
     }
 
     @Override
-    public Observable clearDb() {
+    public Observable<Void> clearDb() {
         return mLocal.clearDb();
     }
 

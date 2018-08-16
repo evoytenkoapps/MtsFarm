@@ -33,6 +33,13 @@ public class AppPresenter implements ContractMain.Presenter {
 
     @Override
     public void init() {
+        mRepo.clearDb()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(v -> {
+                }, throwable -> throwable.printStackTrace());
+
+
         mCompositeDisposable.add(
                 mRepo.getCows()
                         .subscribeOn(Schedulers.io())

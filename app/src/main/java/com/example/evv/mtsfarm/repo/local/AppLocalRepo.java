@@ -26,12 +26,24 @@ public class AppLocalRepo implements FarmRepository {
     }
 
     @Override
-    public Observable clearDb() {
-        return Observable.fromCallable(() -> {
-            Log.d(TAG, "delete cows");
-            dao.deleteCows();
-            return null;
-        });
+    public Observable<Void> clearDb() {
+        return Observable.fromCallable(new Callable<Void>() {
+                                           @Override
+                                           public Void call() throws Exception {
+                                               Log.d(TAG, "delete cows");
+                                               dao.deleteCows();
+                                               return null;
+                                           }
+                                       }
+
+
+//                () -> {
+//            Log.d(TAG, "delete cows");
+//            dao.deleteCows();
+//            return null;
+//        }
+//
+        );
     }
 
     public Observable<List<Cow>> addCows(List<Cow> cows) {

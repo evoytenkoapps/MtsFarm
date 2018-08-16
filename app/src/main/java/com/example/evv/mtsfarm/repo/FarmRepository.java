@@ -12,6 +12,6 @@ public interface FarmRepository {
 
     Observable<List<Cow>> getCows();
 
-    Observable clearDb();
+    Observable<Void> clearDb();
 
 }
