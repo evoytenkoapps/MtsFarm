@@ -8,7 +8,7 @@ import com.example.evv.mtsfarm.data.Milking;
 import com.example.evv.mtsfarm.repo.local.dao.CowDao;
 import com.example.evv.mtsfarm.repo.local.dao.MilkingDao;
 
-@Database(entities = {Cow.class, Milking.class}, version = 2, exportSchema = false)
+@Database(entities = {Cow.class, Milking.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract CowDao cowDao();

@@ -97,8 +97,8 @@ public class ExcelParser {
                         milking.weight = Integer.valueOf(cell.getContents());
                         break;
                 }
-                result.add(milking);
             }
+            result.add(milking);
         }
         return result;
     }
@@ -121,8 +121,8 @@ public class ExcelParser {
                         weight.weight = Integer.valueOf(cell.getContents());
                         break;
                 }
-                result.add(weight);
             }
+            result.add(weight);
         }
         return result;
     }
@@ -145,8 +145,8 @@ public class ExcelParser {
                         temperature.temperature = Double.valueOf(cell.getContents());
                         break;
                 }
-                result.add(temperature);
             }
+            result.add(temperature);
         }
         return result;
     }
