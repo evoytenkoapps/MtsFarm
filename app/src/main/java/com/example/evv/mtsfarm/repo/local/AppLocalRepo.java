@@ -1,5 +1,7 @@
 package com.example.evv.mtsfarm.repo.local;
 
+import android.util.Log;
+
 import com.example.evv.mtsfarm.App;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Storage;
@@ -17,7 +19,6 @@ public class AppLocalRepo implements FarmRepository {
     @Override
     public Observable<List<Cow>> getCows() {
         return App.getDatabase().appDao().getCows()
-                //.takeWhile(data -> data.size() != 0)
                 .toObservable();
     }
 
@@ -26,10 +27,10 @@ public class AppLocalRepo implements FarmRepository {
 //
 //    }
 
-    public Observable addCows(List<Cow> cows) {
-        return Observable.fromCallable((Callable<Void>) () -> {
+    public Observable<List<Cow>> addCows(List<Cow> cows) {
+        return Observable.fromCallable(() -> {
             App.getDatabase().appDao().insert(cows);
-            return null;
+            return cows;
         });
     }
 

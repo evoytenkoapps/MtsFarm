@@ -41,9 +41,12 @@ public class ExcelParser {
     private List<Cow> parseCows() {
         Sheet sheet = mWorkBook.getSheet(0);
         List<Cow> result = new ArrayList<>();
+
         for (int row = 1; row < sheet.getRows(); row++) {
+            int r = row;
             Cow cow = new Cow();
             for (int col = 0; col < sheet.getColumns(); col++) {
+                int c = sheet.getColumns();
                 Cell cell = sheet.getCell(col, row);
                 switch (col) {
                     case 0:
@@ -68,8 +71,8 @@ public class ExcelParser {
                         cow.farm = cell.getContents();
                         break;
                 }
-                result.add(cow);
             }
+            result.add(cow);
         }
         return result;
     }

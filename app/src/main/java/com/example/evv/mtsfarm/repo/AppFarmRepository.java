@@ -33,9 +33,17 @@ public class AppFarmRepository implements FarmRepository {
 
     @Override
     public Observable<List<Cow>> getCows() {
-        return Observable.concat(mLocal.getCows(), mRemote.getCows())
-                .first(new ArrayList<Cow>())
-                .toObservable();
+//        return Observable.concat(mLocal.getCows(), mRemote.getCows())
+//                .first(new ArrayList<Cow>())
+//                .toObservable();
+
+        return mLocal.getCows()
+                .flatMap(data -> {
+                    if (data.size() == 0)
+                        return mRemote.getCows()
+                                .flatMap(list -> mLocal.addCows(list));
+                    return Observable.just(data);
+                });
     }
 
 
