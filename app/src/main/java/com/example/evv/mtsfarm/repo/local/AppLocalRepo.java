@@ -46,7 +46,7 @@ public class AppLocalRepo implements FarmRepository {
         );
     }
 
-    public Observable<Storage> addCows(Storage storage) {
+    public Observable<Storage> addData(Storage storage) {
         return Observable.fromCallable(new Callable<Storage>() {
                                            @Override
                                            public Storage call() throws Exception {

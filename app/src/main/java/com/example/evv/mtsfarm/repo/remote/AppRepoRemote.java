@@ -24,12 +24,11 @@ public class AppRepoRemote {
     private final String FILE_NAME = "Data.xls";
     private final String DOWNLOAD_URL = "https://www.mango-office.ru/upload/support/data/Data2003.xls";
 
-    public Observable<List<Cow>> getCows() {
+    public Observable<Storage> getData() {
         return AppRetrofit.getRetrofitService().getFile(DOWNLOAD_URL)
                 .flatMap(this::saveToDiskRx)
                 .toObservable()
-                .flatMap(this::parseExcel)
-                .map(Storage::getCows);
+                .flatMap(this::parseExcel);
     }
 
     public Observable clearDb() {

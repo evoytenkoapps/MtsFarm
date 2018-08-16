@@ -7,7 +7,6 @@ import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.local.AppLocalRepo;
 import com.example.evv.mtsfarm.repo.remote.AppRepoRemote;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -36,8 +35,9 @@ public class AppFarmRepository implements FarmRepository {
         return mLocal.getCows()
                 .flatMap(data -> {
                     if (data.size() == 0)
-                        return mRemote.getCows()
-                                .flatMap(list -> mLocal.addCows(list));
+                        return mRemote.getData()
+                                .flatMap(list -> mLocal.addData(list))
+                                .map(Storage::getCows);
                     return Observable.just(data);
                 });
     }
