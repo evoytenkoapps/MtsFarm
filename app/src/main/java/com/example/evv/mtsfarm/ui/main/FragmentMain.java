@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.listeners.SwipeToRefreshListener;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
@@ -24,7 +25,7 @@ public class FragmentMain extends Fragment implements ContractMain.View {
     private List<Cow> mData;
     private MyTableAdapter mAdapter;
     final static String[] TABLE_HEADERS = {"ID", "ИМЯ", "СТАДО"};
-    ProgressBar mPb;
+    private ProgressBar mPb;
 
     public FragmentMain() {
     }
@@ -50,6 +51,8 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         headerAdapter.setTextSize(10);
         tableView.setHeaderAdapter(headerAdapter);
 
+        tableView.setSwipeToRefreshEnabled(true);
+        tableView.setSwipeToRefreshListener(mySwipe);
         mPb = rootView.findViewById(R.id.pb_main);
 
         return rootView;
@@ -63,6 +66,15 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         mPresenter.attachView(this);
         mPresenter.getData();
     }
+
+
+    private SwipeToRefreshListener mySwipe = new SwipeToRefreshListener() {
+        @Override
+        public void onRefresh(RefreshIndicator refreshIndicator) {
+            refreshIndicator.hide();
+            mPresenter.getData();
+        }
+    };
 
 
     @Override
