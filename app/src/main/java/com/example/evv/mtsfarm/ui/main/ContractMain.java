@@ -14,10 +14,6 @@ public interface ContractMain {
 
         void hideLoading();
 
-        void showInternet();
-
-        void getData();
-
         void refreshData(List<Cow> data);
     }
 

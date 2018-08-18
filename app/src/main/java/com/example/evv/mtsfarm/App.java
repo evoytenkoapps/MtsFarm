@@ -3,6 +3,8 @@ package com.example.evv.mtsfarm;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.example.evv.mtsfarm.repo.AppFarmRepository;
 import com.example.evv.mtsfarm.repo.FarmRepository;
@@ -36,9 +38,4 @@ public class App extends Application {
     public static AppDataBase getDatabase() {
         return mDataBase;
     }
-
-
-
-
-
 }

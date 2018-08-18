@@ -2,6 +2,8 @@ package com.example.evv.mtsfarm.repo.remote.retrofit;
 
 import android.util.Log;
 
+import com.example.evv.mtsfarm.App;
+
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +45,7 @@ public class AppRetrofit {
                                 .readTimeout(30, TimeUnit.SECONDS)
                                 .retryOnConnectionFailure(true)
                                 .addInterceptor(LoggingInterceptor.create())
+                                .addInterceptor(new ConnectivityInterceptor(App.getContext()))
                                 .build())
                 .build();
 

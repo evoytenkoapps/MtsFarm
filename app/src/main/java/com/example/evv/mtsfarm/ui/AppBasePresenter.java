@@ -1,5 +1,8 @@
 package com.example.evv.mtsfarm.ui;
 
+import com.example.evv.mtsfarm.R;
+import com.example.evv.mtsfarm.repo.remote.retrofit.NoConnectivityException;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -35,8 +38,13 @@ public class AppBasePresenter implements BasePresenter {
     @Override
     public void handleError(Throwable throwable, int resId) {
         throwable.printStackTrace();
-        if (mView != null)
-            mView.showError(resId);
+        if (mView != null) {
+            if (throwable instanceof NoConnectivityException) {
+                mView.showToast(R.string.err_no_internet);
+                return;
+            }
+            mView.showToast(resId);
+        }
     }
 
 }

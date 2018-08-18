@@ -88,19 +88,10 @@ public class FragmentMain extends Fragment implements ContractMain.View {
     }
 
     @Override
-    public void showInternet() {
-
-    }
-
-    @Override
     public void showToast(int resId) {
         Toast.makeText(getActivity(), resId, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void getData() {
-        mPresenter.getData();
-    }
 
     @Override
     public void refreshData(List<Cow> data) {
@@ -109,11 +100,6 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void showError(int resId) {
-        hideLoading();
-        showToast(resId);
-    }
 
     @Override
     public void onResume() {

@@ -1,5 +1,6 @@
 package com.example.evv.mtsfarm.ui.main;
 
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.example.evv.mtsfarm.App;
@@ -41,6 +42,7 @@ public class PresenterMain extends AppBasePresenter implements ContractMain.Pres
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(data -> getView().showLoading())
+                        .doFinally(() -> getView().hideLoading())
                         .subscribe(
                                 data -> {
                                     getView().hideLoading();
@@ -54,10 +56,6 @@ public class PresenterMain extends AppBasePresenter implements ContractMain.Pres
         if (view == null) {
             Log.e(TAG, "Fake View");
             return new ContractMain.View() {
-                @Override
-                public void showError(int resId) {
-
-                }
 
                 @Override
                 public void showToast(int resId) {
@@ -72,16 +70,6 @@ public class PresenterMain extends AppBasePresenter implements ContractMain.Pres
                 @Override
                 public void hideLoading() {
                     mQue.addFirst(HIDE_LOADING);
-                }
-
-                @Override
-                public void showInternet() {
-
-                }
-
-                @Override
-                public void getData() {
-
                 }
 
                 @Override
