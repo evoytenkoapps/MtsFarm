@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         @Override
         public void onDataClicked(int rowIndex, Cow clickedData) {
             Log.d(TAG, "INDEX: " + rowIndex);
+            ((MainActivity) getActivity()).showDetailFragment();
         }
     }
 
