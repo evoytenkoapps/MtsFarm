@@ -3,6 +3,7 @@ package com.example.evv.mtsfarm.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import java.util.List;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.listeners.SwipeToRefreshListener;
+import de.codecrafters.tableview.listeners.TableDataClickListener;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 public class FragmentMain extends Fragment implements ContractMain.View {
+    private final String TAG = this.getClass().getSimpleName();
     private ContractMain.Presenter mPresenter;
     private List<Cow> mData;
     private MyTableAdapter mAdapter;
@@ -54,10 +57,17 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         tableView.setSwipeToRefreshEnabled(true);
         tableView.setSwipeToRefreshListener(mySwipe);
         mPb = rootView.findViewById(R.id.pb_main);
+        tableView.addDataClickListener(new CowClickListener());
 
         return rootView;
     }
 
+    private class CowClickListener implements TableDataClickListener<Cow> {
+        @Override
+        public void onDataClicked(int rowIndex, Cow clickedData) {
+            Log.d(TAG, "INDEX: " + rowIndex);
+        }
+    }
 
     @Override
     public void onStart() {
