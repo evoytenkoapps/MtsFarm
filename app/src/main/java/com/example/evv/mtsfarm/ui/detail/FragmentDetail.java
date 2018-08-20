@@ -4,10 +4,12 @@ package com.example.evv.mtsfarm.ui.detail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
@@ -29,6 +31,7 @@ public class FragmentDetail extends Fragment {
     private List<Cow> mData;
     private MyEditTableAdapter mAdapter;
     final static String[] TABLE_HEADERS = {"ID", "ИМЯ", "СТАДО"};
+    private Button mBtnSave;
 
     public FragmentDetail() {
     }
@@ -40,7 +43,9 @@ public class FragmentDetail extends Fragment {
 
         mData = new ArrayList<Cow>();
         Cow cow = new Cow();
-        cow.age = 1;
+        cow.id = 1;
+        cow.name = "Test";
+        cow.herd = 100;
         mData.add(cow);
         mAdapter = new MyEditTableAdapter(getActivity(), mData);
         TableView tableView = (TableView) rootView.findViewById(R.id.table_milking);
@@ -55,9 +60,22 @@ public class FragmentDetail extends Fragment {
         headerAdapter.setTextSize(10);
         tableView.setHeaderAdapter(headerAdapter);
 
-
+        mBtnSave = rootView.findViewById(R.id.save);
+        mBtnSave.setOnClickListener(myClick);
 
         return rootView;
     }
+
+    View.OnClickListener myClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            for (Cow cow : mData) {
+                Log.d(TAG, String.valueOf(cow.id));
+                Log.d(TAG, String.valueOf(cow.name));
+                Log.d(TAG, String.valueOf(cow.herd));
+            }
+
+        }
+    };
 
 }

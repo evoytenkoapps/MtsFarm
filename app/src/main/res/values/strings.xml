@@ -5,4 +5,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="err_data_load">Ошибка загрузки файла</string>
     <string name="err_no_internet">Подключите интернет</string>
+    <string name="save">Сохранить</string>
 </resources>
