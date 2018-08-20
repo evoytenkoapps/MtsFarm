@@ -40,4 +40,5 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "android.arch.persistence.room:rxjava2:1.1.1"
     compile 'de.codecrafters.tableview:tableview:2.8.0'
+    implementation 'com.sortabletableview.recyclerview:sortableview:3.1.0'
 }

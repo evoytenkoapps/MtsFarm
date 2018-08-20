@@ -47,6 +47,9 @@ public class MilkingTableAdapter extends TableDataAdapter<Milking> {
         editText.setText(text);
         editText.setPadding(20, 10, 20, 10);
         editText.setTextSize(TEXT_SIZE);
+        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(30, 30); // Width , height
+        editText.setLayoutParams(lparams);
+
         switch (field) {
             case DATE:
                 editText.setInputType(InputType.TYPE_CLASS_TEXT);

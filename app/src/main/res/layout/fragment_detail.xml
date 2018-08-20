@@ -5,24 +5,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.FragmentDetail">
 
-    <ScrollView
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padding_table_top">
 
                 <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/table_milking"
-                    android:layout_width="match_parent"
+                    android:layout_width="283dp"
                     android:layout_height="213dp"
                     table:tableView_columnCount="2" />
 
@@ -34,49 +41,51 @@
                     android:text="@string/save" />
             </LinearLayout>
 
+        </android.support.v4.widget.NestedScrollView>
 
-            <LinearLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_table_top">
+
+            <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/table_weight"
                 android:layout_width="match_parent"
+                android:layout_height="213dp"
+                table:tableView_columnCount="2" />
+
+            <Button
+                android:id="@+id/save_weight"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/padding_table_top">
-
-                <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/table_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="213dp"
-                    table:tableView_columnCount="2" />
-
-                <Button
-                    android:id="@+id/save_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="@string/save" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/padding_table_top">
-
-                <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/table_temperature"
-                    android:layout_width="match_parent"
-                    android:layout_height="213dp"
-                    table:tableView_columnCount="2" />
-
-                <Button
-                    android:id="@+id/save_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="@string/save" />
-            </LinearLayout>
-
+                android:layout_gravity="right"
+                android:text="@string/save" />
         </LinearLayout>
 
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_table_top">
+
+            <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/table_temperature"
+                android:layout_width="match_parent"
+                android:layout_height="213dp"
+                table:tableView_columnCount="2" />
+
+            <Button
+                android:id="@+id/save_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/save" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--</ScrollView>-->
 </FrameLayout>
