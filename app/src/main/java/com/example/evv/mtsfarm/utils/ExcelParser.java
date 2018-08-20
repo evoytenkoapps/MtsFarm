@@ -91,7 +91,7 @@ public class ExcelParser {
                         milking.id = Integer.valueOf(cell.getContents());
                         break;
                     case 1:
-                        milking.data = cell.getContents();
+                        milking.date = cell.getContents();
                         break;
                     case 2:
                         milking.weight = Integer.valueOf(cell.getContents());
@@ -115,7 +115,7 @@ public class ExcelParser {
                         weight.id = Integer.valueOf(cell.getContents());
                         break;
                     case 1:
-                        weight.date = new Date(cell.getContents());
+                        weight.date = cell.getContents();
                         break;
                     case 2:
                         weight.weight = Integer.valueOf(cell.getContents());
@@ -139,7 +139,7 @@ public class ExcelParser {
                         temperature.id = Integer.valueOf(cell.getContents());
                         break;
                     case 1:
-                        temperature.date = new Date(cell.getContents());
+                        temperature.date = cell.getContents();
                         break;
                     case 2:
                         temperature.temperature = Double.valueOf(cell.getContents());

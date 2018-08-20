@@ -12,6 +12,8 @@ public class Milking {
 
     public int id;
 
-    public String data;
+    public String date;
+
     public int weight;
+
 }

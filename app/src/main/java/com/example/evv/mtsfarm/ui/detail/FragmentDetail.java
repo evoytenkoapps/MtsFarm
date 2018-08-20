@@ -1,11 +1,13 @@
 package com.example.evv.mtsfarm.ui.detail;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
@@ -52,6 +54,8 @@ public class FragmentDetail extends Fragment {
         SimpleTableHeaderAdapter headerAdapter = new SimpleTableHeaderAdapter(getActivity(), TABLE_HEADERS);
         headerAdapter.setTextSize(10);
         tableView.setHeaderAdapter(headerAdapter);
+
+
 
         return rootView;
     }

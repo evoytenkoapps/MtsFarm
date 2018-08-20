@@ -4,6 +4,6 @@ import java.util.Date;
 
 public class Weight {
     public int id;
-    public Date date;
+    public String date;
     public int weight;
 }
