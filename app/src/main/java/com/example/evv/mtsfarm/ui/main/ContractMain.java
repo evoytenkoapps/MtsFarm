@@ -23,5 +23,7 @@ public interface ContractMain {
         void destroy();
 
         View getView();
+
+        void setId(int id);
     }
 }

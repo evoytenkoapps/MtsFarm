@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
-import com.example.evv.mtsfarm.ui.main.ContractMain;
+import com.example.evv.mtsfarm.data.Detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import de.codecrafters.tableview.model.TableColumnWeightModel;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 
-public class FragmentDetail extends Fragment {
+public class FragmentDetail extends Fragment implements ContractDetail.View {
 
     private final String TAG = this.getClass().getSimpleName();
-    private ContractMain.Presenter mPresenter;
+    private ContractDetail.Presenter mPresenter;
     private List<Cow> mDataMilking;
     private List<Cow> mDataWeight;
     private List<Cow> mDataTemperature;
@@ -99,6 +99,13 @@ public class FragmentDetail extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter = new PresenterDetail();
+        mPresenter.getData();
+    }
+
     View.OnClickListener myClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -112,4 +119,8 @@ public class FragmentDetail extends Fragment {
     };
 
 
+    @Override
+    public void setData(List<Detail> detailList) {
+
+    }
 }

@@ -68,6 +68,7 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         public void onDataClicked(int rowIndex, Cow clickedData) {
             Log.d(TAG, "INDEX: " + rowIndex);
             ((MainActivity) getActivity()).showDetailFragment();
+            mPresenter.setId(clickedData.id);
         }
     }
 

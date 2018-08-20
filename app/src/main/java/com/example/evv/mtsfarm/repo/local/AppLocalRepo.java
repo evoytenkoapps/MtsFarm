@@ -4,18 +4,27 @@ import android.util.Log;
 
 import com.example.evv.mtsfarm.App;
 import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.data.Detail;
 import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.repo.FarmRepository;
 import com.example.evv.mtsfarm.repo.local.dao.CowDao;
+import com.example.evv.mtsfarm.repo.local.dao.MilkingDao;
+import com.example.evv.mtsfarm.repo.local.dao.TemperatureDao;
+import com.example.evv.mtsfarm.repo.local.dao.WeightDao;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class AppLocalRepo implements FarmRepository {
 
-    private CowDao dao = App.getDatabase().cowDao();
+    private CowDao cowDao = App.getDatabase().cowDao();
+    private MilkingDao milkingDao = App.getDatabase().milkingDao();
+    private TemperatureDao temperatureDao = App.getDatabase().temperatureDao();
+    private WeightDao weightDao = App.getDatabase().weightDao();
+
     private final String TAG = this.getClass().getSimpleName();
 
     public Observable<List<Cow>> getCows() {
@@ -29,32 +38,34 @@ public class AppLocalRepo implements FarmRepository {
                                            @Override
                                            public Void call() throws Exception {
                                                Log.d(TAG, "delete cows");
-                                               dao.deleteCows();
+                                               cowDao.deleteCows();
                                                return null;
                                            }
                                        }
-
-
-//                () -> {
-//            Log.d(TAG, "delete cows");
-//            dao.deleteCows();
-//            return null;
-//        }
-//
         );
+    }
+
+    @Override
+    public void setId(int id) {
+
+    }
+
+    @Override
+    public Single<Detail> getDetail() {
+        return null;
     }
 
     public Observable<Storage> addData(Storage storage) {
         return Observable.fromCallable(new Callable<Storage>() {
                                            @Override
                                            public Storage call() throws Exception {
-                                               dao.addCows(storage.getCows());
-                                               App.getDatabase().milkingDao().addMilking(storage.getMilkings());
+                                               cowDao.addCows(storage.getCows());
+                                               milkingDao.addMilking(storage.getMilkings());
+                                               weightDao.addWeight(storage.getWeights());
+                                               temperatureDao.addTemperature(storage.getTemperatures());
                                                return storage;
                                            }
                                        }
-
-
         );
     }
 

@@ -1,6 +1,7 @@
 package com.example.evv.mtsfarm.repo;
 
 import com.example.evv.mtsfarm.data.Cow;
+import com.example.evv.mtsfarm.data.Detail;
 import com.example.evv.mtsfarm.data.Storage;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface FarmRepository {
     Observable<List<Cow>> getCows();
 
     Observable<Void> clearDb();
+
+    void setId(int id);
+
+    Single<Detail> getDetail();
 
 }

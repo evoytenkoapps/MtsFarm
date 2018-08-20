@@ -82,6 +82,11 @@ public class PresenterMain extends AppBasePresenter implements ContractMain.Pres
     }
 
     @Override
+    public void setId(int id) {
+        mRepo.setId(id);
+    }
+
+    @Override
     public void attachView(BaseView view) {
         super.attachView(view);
         String state;
