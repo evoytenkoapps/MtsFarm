@@ -1,20 +1,17 @@
 package com.example.evv.mtsfarm.ui.detail;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.ui.main.ContractMain;
-import com.example.evv.mtsfarm.ui.main.MyTableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +25,17 @@ public class FragmentDetail extends Fragment {
 
     private final String TAG = this.getClass().getSimpleName();
     private ContractMain.Presenter mPresenter;
-    private List<Cow> mData;
-    private MyEditTableAdapter mAdapter;
-    final static String[] TABLE_HEADERS = {"ID", "ИМЯ", "СТАДО"};
+    private List<Cow> mDataMilking;
+    private List<Cow> mDataWeight;
+    private List<Cow> mDataTemperature;
+    private MyEditTableAdapter mAdapterMilking;
+    private MyEditTableAdapter mAdapterWeight;
+    private MyEditTableAdapter mAdapterTemperature;
+
+    final static String[] MILKING_HEADERS = {"ДАТА", "ЛИТРЫ"};
+    final static String[] MILKING_WEIGHT = {"ДАТА", "КГ"};
+    final static String[] MILKING_TEMPERATURE = {"ДАТА", "ТЕМПЕРАТУРА"};
+
     private Button mBtnSave;
 
     public FragmentDetail() {
@@ -41,26 +46,29 @@ public class FragmentDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        mData = new ArrayList<Cow>();
-        Cow cow = new Cow();
-        cow.id = 1;
-        cow.name = "Test";
-        cow.herd = 100;
-        mData.add(cow);
-        mAdapter = new MyEditTableAdapter(getActivity(), mData);
-        TableView tableView = (TableView) rootView.findViewById(R.id.table_milking);
+        mDataMilking = new ArrayList<Cow>();
+        mDataWeight = new ArrayList<Cow>();
+        mDataTemperature = new ArrayList<Cow>();
 
-        tableView.setDataAdapter(mAdapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(3);
+        mAdapterMilking = new MyEditTableAdapter(getActivity(), mDataMilking);
+        mAdapterWeight = new MyEditTableAdapter(getActivity(), mDataWeight);
+        mAdapterTemperature = new MyEditTableAdapter(getActivity(), mDataTemperature);
+
+        TableView tableMilking = (TableView) rootView.findViewById(R.id.table_milking);
+        TableView tableWeight = (TableView) rootView.findViewById(R.id.table_weight);
+        TableView tableTemperature = (TableView) rootView.findViewById(R.id.table_temperature);
+
+        tableMilking.setDataAdapter(mAdapterMilking);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
-        columnModel.setColumnWeight(3, 1);
-        tableView.setColumnModel(columnModel);
-        SimpleTableHeaderAdapter headerAdapter = new SimpleTableHeaderAdapter(getActivity(), TABLE_HEADERS);
+        tableMilking.setColumnModel(columnModel);
+        SimpleTableHeaderAdapter headerAdapter = new SimpleTableHeaderAdapter(getActivity(), MILKING_HEADERS);
         headerAdapter.setTextSize(10);
-        tableView.setHeaderAdapter(headerAdapter);
+        tableMilking.setHeaderAdapter(headerAdapter);
 
-        mBtnSave = rootView.findViewById(R.id.save);
+        mBtnSave = rootView.findViewById(R.id.save_milking);
+
         mBtnSave.setOnClickListener(myClick);
 
         return rootView;
@@ -69,7 +77,7 @@ public class FragmentDetail extends Fragment {
     View.OnClickListener myClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Cow cow : mData) {
+            for (Cow cow : mDataMilking) {
                 Log.d(TAG, String.valueOf(cow.id));
                 Log.d(TAG, String.valueOf(cow.name));
                 Log.d(TAG, String.valueOf(cow.herd));
@@ -77,5 +85,6 @@ public class FragmentDetail extends Fragment {
 
         }
     };
+
 
 }

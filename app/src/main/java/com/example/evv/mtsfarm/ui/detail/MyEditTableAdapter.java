@@ -97,6 +97,5 @@ public class MyEditTableAdapter extends TableDataAdapter<Cow> {
         });
 
         return editText;
-
     }
 }
