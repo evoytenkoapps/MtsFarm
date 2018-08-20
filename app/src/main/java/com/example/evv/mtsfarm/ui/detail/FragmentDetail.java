@@ -33,10 +33,12 @@ public class FragmentDetail extends Fragment {
     private MyEditTableAdapter mAdapterTemperature;
 
     final static String[] MILKING_HEADERS = {"ДАТА", "ЛИТРЫ"};
-    final static String[] MILKING_WEIGHT = {"ДАТА", "КГ"};
-    final static String[] MILKING_TEMPERATURE = {"ДАТА", "ТЕМПЕРАТУРА"};
+    final static String[] WEIGHT_HEADERS = {"ДАТА", "КГ"};
+    final static String[] TEMPERATURE_HEADERS = {"ДАТА", "ТЕМПЕРАТУРА"};
 
-    private Button mBtnSave;
+    private Button mBtnSaveMilking;
+    private Button mBtnSaveWeight;
+    private Button mBtnSaveTemperature;
 
     public FragmentDetail() {
     }
@@ -67,9 +69,32 @@ public class FragmentDetail extends Fragment {
         headerAdapter.setTextSize(10);
         tableMilking.setHeaderAdapter(headerAdapter);
 
-        mBtnSave = rootView.findViewById(R.id.save_milking);
+        tableWeight.setDataAdapter(mAdapterWeight);
+        TableColumnWeightModel columnModelWeight = new TableColumnWeightModel(2);
+        columnModelWeight.setColumnWeight(1, 1);
+        columnModelWeight.setColumnWeight(2, 1);
+        tableWeight.setColumnModel(columnModelWeight);
+        SimpleTableHeaderAdapter headerlWeight = new SimpleTableHeaderAdapter(getActivity(), WEIGHT_HEADERS);
+        headerlWeight.setTextSize(10);
+        tableWeight.setHeaderAdapter(headerlWeight);
 
-        mBtnSave.setOnClickListener(myClick);
+        tableTemperature.setDataAdapter(mAdapterTemperature);
+        TableColumnWeightModel columnModelTemp = new TableColumnWeightModel(2);
+        columnModelTemp.setColumnWeight(1, 1);
+        columnModelTemp.setColumnWeight(2, 1);
+        tableTemperature.setColumnModel(columnModelTemp);
+        SimpleTableHeaderAdapter adapterTemp = new SimpleTableHeaderAdapter(getActivity(), TEMPERATURE_HEADERS);
+        adapterTemp.setTextSize(10);
+        tableTemperature.setHeaderAdapter(adapterTemp);
+
+        mBtnSaveMilking = rootView.findViewById(R.id.save_milking);
+        mBtnSaveWeight = rootView.findViewById(R.id.save_weight);
+        mBtnSaveTemperature = rootView.findViewById(R.id.save_temperature);
+
+        mBtnSaveMilking.setOnClickListener(myClick);
+        mBtnSaveWeight.setOnClickListener(myClick);
+        mBtnSaveTemperature.setOnClickListener(myClick);
+
 
         return rootView;
     }
