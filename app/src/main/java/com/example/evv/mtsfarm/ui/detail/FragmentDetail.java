@@ -8,10 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.evv.mtsfarm.R;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Detail;
+import com.example.evv.mtsfarm.data.Milking;
+import com.example.evv.mtsfarm.data.Temperature;
+import com.example.evv.mtsfarm.data.Weight;
+import com.example.evv.mtsfarm.ui.detail.adapters.MilkingTableAdapter;
+import com.example.evv.mtsfarm.ui.detail.adapters.TempTableAdapter;
+import com.example.evv.mtsfarm.ui.detail.adapters.WeightTableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +32,12 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
 
     private final String TAG = this.getClass().getSimpleName();
     private ContractDetail.Presenter mPresenter;
-    private List<Cow> mDataMilking;
-    private List<Cow> mDataWeight;
-    private List<Cow> mDataTemperature;
-    private MyEditTableAdapter mAdapterMilking;
-    private MyEditTableAdapter mAdapterWeight;
-    private MyEditTableAdapter mAdapterTemperature;
+    private List<Milking> mDataMilking;
+    private List<Weight> mDataWeight;
+    private List<Temperature> mDataTemperature;
+    private MilkingTableAdapter mAdapterMilking;
+    private WeightTableAdapter mAdapterWeight;
+    private TempTableAdapter mAdapterTemperature;
 
     final static String[] MILKING_HEADERS = {"ДАТА", "ЛИТРЫ"};
     final static String[] WEIGHT_HEADERS = {"ДАТА", "КГ"};
@@ -48,13 +55,13 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        mDataMilking = new ArrayList<Cow>();
-        mDataWeight = new ArrayList<Cow>();
-        mDataTemperature = new ArrayList<Cow>();
+        mDataMilking = new ArrayList<>();
+        mDataWeight = new ArrayList<>();
+        mDataTemperature = new ArrayList<>();
 
-        mAdapterMilking = new MyEditTableAdapter(getActivity(), mDataMilking);
-        mAdapterWeight = new MyEditTableAdapter(getActivity(), mDataWeight);
-        mAdapterTemperature = new MyEditTableAdapter(getActivity(), mDataTemperature);
+        mAdapterMilking = new MilkingTableAdapter(getActivity(), mDataMilking);
+        mAdapterWeight = new WeightTableAdapter(getActivity(), mDataWeight);
+        mAdapterTemperature = new TempTableAdapter(getActivity(), mDataTemperature);
 
         TableView tableMilking = (TableView) rootView.findViewById(R.id.table_milking);
         TableView tableWeight = (TableView) rootView.findViewById(R.id.table_weight);
@@ -103,24 +110,69 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
     public void onStart() {
         super.onStart();
         mPresenter = new PresenterDetail();
+        mPresenter.attachView(this);
         mPresenter.getData();
+
     }
 
     View.OnClickListener myClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (Cow cow : mDataMilking) {
-                Log.d(TAG, String.valueOf(cow.id));
-                Log.d(TAG, String.valueOf(cow.name));
-                Log.d(TAG, String.valueOf(cow.herd));
+            switch (v.getId()) {
+                case R.id.save_milking:
+                    for (Milking milking : mDataMilking) {
+                        Log.d(TAG, String.valueOf(milking.date));
+                        Log.d(TAG, String.valueOf(milking.litters));
+                    }
+                    break;
+                case R.id.save_weight:
+                    for (Weight weight : mDataWeight) {
+                        Log.d(TAG, String.valueOf(weight.date));
+                        Log.d(TAG, String.valueOf(weight.weight));
+                    }
+                    break;
+                case R.id.save_temperature:
+                    for (Temperature temperature : mDataTemperature) {
+                        Log.d(TAG, String.valueOf(temperature.date));
+                        Log.d(TAG, String.valueOf(temperature.temperature));
+                    }
+                    break;
             }
-
         }
     };
 
+    @Override
+    public void setData(Detail detailList) {
+        mDataMilking.addAll(detailList.getMilkings());
+        mAdapterMilking.notifyDataSetChanged();
+
+        mDataWeight.addAll(detailList.getWeights());
+        mAdapterWeight.notifyDataSetChanged();
+
+        mDataTemperature.addAll(detailList.getTemperatures());
+        mAdapterTemperature.notifyDataSetChanged();
+    }
 
     @Override
-    public void setData(List<Detail> detailList) {
+    public void onResume() {
+        super.onResume();
+        mPresenter.attachView(this);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.detouchView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
+    }
+
+    @Override
+    public void showToast(int resId) {
+        Toast.makeText(getActivity(), getString(resId), Toast.LENGTH_LONG).show();
     }
 }

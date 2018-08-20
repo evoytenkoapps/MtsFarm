@@ -14,6 +14,6 @@ public class Milking {
 
     public String date;
 
-    public int weight;
+    public int litters;
 
 }

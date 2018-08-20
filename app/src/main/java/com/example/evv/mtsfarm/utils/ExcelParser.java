@@ -1,7 +1,5 @@
 package com.example.evv.mtsfarm.utils;
 
-import android.arch.persistence.room.Dao;
-
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Storage;
 import com.example.evv.mtsfarm.data.Milking;
@@ -11,7 +9,6 @@ import com.example.evv.mtsfarm.data.Weight;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import jxl.Cell;
@@ -94,7 +91,7 @@ public class ExcelParser {
                         milking.date = cell.getContents();
                         break;
                     case 2:
-                        milking.weight = Integer.valueOf(cell.getContents());
+                        milking.litters = Integer.valueOf(cell.getContents());
                         break;
                 }
             }

@@ -19,7 +19,7 @@ public class AppFarmRepository implements FarmRepository {
     private static AppFarmRepository INSTANCE = null;
     private AppLocalRepo mLocal;
     private AppRepoRemote mRemote;
-    private int id;
+    private int mId;
 
     private AppFarmRepository(@NonNull AppLocalRepo local, @NonNull AppRepoRemote remote) {
         mLocal = local;
@@ -52,12 +52,13 @@ public class AppFarmRepository implements FarmRepository {
 
     @Override
     public void setId(int id) {
-        id = id;
+        mId = id;
     }
+
 
     @Override
     public Single<Detail> getDetail() {
-        return mLocal.getDetail();
+        return mLocal.getDetail(mId);
     }
 
 }

@@ -55,6 +55,20 @@ public class AppLocalRepo implements FarmRepository {
         return null;
     }
 
+    public Single<Detail> getDetail(int id) {
+        return Single.fromCallable(new Callable<Detail>() {
+                                       @Override
+                                       public Detail call() throws Exception {
+                                           Detail result = new Detail();
+                                           result.setMilkings(milkingDao.getMilking(id));
+                                           result.setWeights(weightDao.getWeight(id));
+                                           result.setTemperatures(temperatureDao.getTemperature(id));
+                                           return result;
+                                       }
+                                   }
+        );
+    }
+
     public Observable<Storage> addData(Storage storage) {
         return Observable.fromCallable(new Callable<Storage>() {
                                            @Override

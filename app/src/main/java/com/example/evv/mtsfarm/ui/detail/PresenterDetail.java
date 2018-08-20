@@ -29,6 +29,11 @@ public class PresenterDetail extends AppBasePresenter implements ContractDetail.
         if (view == null) {
             return new ContractDetail.View() {
                 @Override
+                public void showToast(int resId) {
+
+                }
+
+                @Override
                 public void setData(Detail detailList) {
 
                 }
