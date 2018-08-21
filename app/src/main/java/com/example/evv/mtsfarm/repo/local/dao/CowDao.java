@@ -12,6 +12,7 @@ import com.example.evv.mtsfarm.data.Milking;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 
 @Dao
@@ -19,14 +20,11 @@ public interface CowDao {
     @Query("SELECT * FROM cow")
     Flowable<List<Cow>> getCows();
 
+    @Query("SELECT * FROM cow where id=:id")
+    Single<Cow> getCow(int id);
+
     @Insert
     void addCows(List<Cow> cow);
-
-    @Update
-    void update(Cow cow);
-
-    @Delete
-    void delete(Cow cow);
 
     @Query("DELETE FROM cow")
     void deleteCows();

@@ -1,5 +1,6 @@
 package com.example.evv.mtsfarm.ui.detail;
 
+import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Detail;
 import com.example.evv.mtsfarm.data.Milking;
 import com.example.evv.mtsfarm.data.Temperature;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface ContractDetail {
     interface View extends BaseView {
         void setData(Detail detailList);
+
+        void setCow(Cow cow);
     }
 
     interface Presenter extends BasePresenter {
@@ -24,5 +27,8 @@ public interface ContractDetail {
         void saveWeight(List<Weight> weights);
 
         void saveTemperature(List<Temperature> temperatures);
+
+        void getCow();
+
     }
 }

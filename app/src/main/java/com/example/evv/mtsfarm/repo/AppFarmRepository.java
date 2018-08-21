@@ -50,6 +50,11 @@ public class AppFarmRepository implements FarmRepository {
     }
 
     @Override
+    public Single<Cow> getCow() {
+        return mLocal.getCow(mId);
+    }
+
+    @Override
     public Observable<Void> clearDb() {
         return mLocal.clearDb();
     }

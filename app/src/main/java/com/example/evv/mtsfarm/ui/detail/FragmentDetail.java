@@ -3,12 +3,14 @@ package com.example.evv.mtsfarm.ui.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evv.mtsfarm.R;
@@ -48,6 +50,11 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
     private Button mBtnSaveWeight;
     private Button mBtnSaveTemperature;
 
+    private TextView mTvId;
+    private TextView mTvHerd;
+    private TextView mTvFarm;
+    private TextView mTvName;
+
     public FragmentDetail() {
     }
 
@@ -55,6 +62,14 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.detail));
+
+        mTvId = rootView.findViewById(R.id.tv_id);
+        mTvFarm = rootView.findViewById(R.id.tv_farm);
+        mTvHerd = rootView.findViewById(R.id.tv_herd);
+        mTvName = rootView.findViewById(R.id.tv_name);
 
         mDataMilking = new ArrayList<>();
         mDataWeight = new ArrayList<>();
@@ -127,7 +142,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         mPresenter = new PresenterDetail();
         mPresenter.attachView(this);
         mPresenter.getData();
-
+        mPresenter.getCow();
     }
 
     View.OnClickListener myClick = new View.OnClickListener() {
@@ -157,6 +172,15 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
 
         mDataTemperature.addAll(detailList.getTemperatures());
         mAdapterTemperature.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setCow(Cow cow) {
+        mTvId.setText(String.valueOf(cow.id));
+        mTvHerd.setText(String.valueOf(cow.herd));
+        mTvFarm.setText(cow.farm);
+        String name = cow.name + "( " + cow.age + " лет, " + +cow.weight + "кг, " + cow.status + " )";
+        mTvName.setText(name);
     }
 
     @Override

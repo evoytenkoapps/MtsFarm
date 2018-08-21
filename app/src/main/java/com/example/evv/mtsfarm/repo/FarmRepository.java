@@ -17,6 +17,8 @@ public interface FarmRepository {
 
     Observable<List<Cow>> getCows();
 
+    Single<Cow> getCow();
+
     Observable<Void> clearDb();
 
     void setId(int id);
