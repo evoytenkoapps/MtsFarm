@@ -3,6 +3,7 @@ package com.example.evv.mtsfarm.repo.local.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.evv.mtsfarm.data.Detail;
 import com.example.evv.mtsfarm.data.Milking;
@@ -18,6 +19,6 @@ public interface MilkingDao {
     @Query("SELECT * FROM milking where id =:id")
     List<Milking> getMilking(int id);
 
-    @Query("UPDATE milking SET date=:date, litters=:letters WHERE `key`=:key")
-    void updateMilking(int key, String date, int letters);
+    @Update
+    void updateMilking(List<Milking> milkings);
 }

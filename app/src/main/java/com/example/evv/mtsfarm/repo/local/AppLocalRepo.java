@@ -62,9 +62,7 @@ public class AppLocalRepo implements FarmRepository {
     @Override
     public Completable updateMilking(List<Milking> milkings) {
         return Completable.fromCallable(() -> {
-            for (Milking milking : milkings) {
-                milkingDao.updateMilking(milking.key, milking.date, milking.litters);
-            }
+            milkingDao.updateMilking(milkings);
             return null;
         });
     }
