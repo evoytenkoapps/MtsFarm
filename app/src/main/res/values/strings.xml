@@ -12,4 +12,5 @@
     <string name="herd">"Стадо - "</string>
     <string name="id">"ID - "</string>
     <string name="cow_list">Список коров</string>
+    <string name="detail">Детализация</string>
 </resources>

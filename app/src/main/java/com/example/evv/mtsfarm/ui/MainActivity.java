@@ -15,9 +15,11 @@ import com.example.evv.mtsfarm.ui.detail.FragmentDetail;
 import com.example.evv.mtsfarm.ui.main.FragmentMain;
 
 public class MainActivity extends AppCompatActivity {
-    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private FragmentManager mFragmentManager;
     private final String TAG = this.getClass().getSimpleName();
+    private final String MAIN_FRAGMENT = "MAIN_FRAGMENT";
+    private final String DETAIL_FRAGMENT = "DETAIL_FRAGMENT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showMainFragment();
-                Log.d(TAG, "press back");
             }
         });
     }
@@ -43,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
     public void showMainFragment() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new FragmentMain()).commit();
+        fragmentTransaction.replace(R.id.fragment_container, new FragmentMain(), MAIN_FRAGMENT).commit();
     }
 
     public void showDetailFragment() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new FragmentDetail()).commit();
+        fragmentTransaction.replace(R.id.fragment_container, new FragmentDetail(), DETAIL_FRAGMENT).commit();
     }
 
     @Override
@@ -67,4 +68,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mFragmentManager.findFragmentByTag(DETAIL_FRAGMENT) != null) {
+            showMainFragment();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
