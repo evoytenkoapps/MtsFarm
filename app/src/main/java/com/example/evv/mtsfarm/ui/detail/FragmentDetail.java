@@ -88,7 +88,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         columnModel.setColumnWeight(2, 1);
         tableMilking.setColumnModel(columnModel);
         SimpleTableHeaderAdapter headerAdapter = new SimpleTableHeaderAdapter(getActivity(), MILKING_HEADERS);
-        headerAdapter.setTextSize(5);
+        headerAdapter.setTextSize(10);
         tableMilking.setHeaderAdapter(headerAdapter);
 
         tableWeight.setDataAdapter(mAdapterWeight);
@@ -97,7 +97,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         columnModelWeight.setColumnWeight(2, 1);
         tableWeight.setColumnModel(columnModelWeight);
         SimpleTableHeaderAdapter headerlWeight = new SimpleTableHeaderAdapter(getActivity(), WEIGHT_HEADERS);
-        headerlWeight.setTextSize(5);
+        headerlWeight.setTextSize(10);
         tableWeight.setHeaderAdapter(headerlWeight);
 
         tableTemperature.setDataAdapter(mAdapterTemperature);
@@ -106,7 +106,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         columnModelTemp.setColumnWeight(2, 1);
         tableTemperature.setColumnModel(columnModelTemp);
         SimpleTableHeaderAdapter adapterTemp = new SimpleTableHeaderAdapter(getActivity(), TEMPERATURE_HEADERS);
-        adapterTemp.setTextSize(5);
+        adapterTemp.setTextSize(10);
         tableTemperature.setHeaderAdapter(adapterTemp);
 
         mBtnSaveMilking = rootView.findViewById(R.id.save_milking);

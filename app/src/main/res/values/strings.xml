@@ -8,4 +8,7 @@
     <string name="save">Сохранить</string>
     <string name="error_load_detail">Ошибка загрузки детальных данных</string>
     <string name="error_save_data">Ошибка сохранения файла</string>
+    <string name="farm">"Ферма - "</string>
+    <string name="herd">"Стадо - "</string>
+    <string name="id">"ID - "</string>
 </resources>
