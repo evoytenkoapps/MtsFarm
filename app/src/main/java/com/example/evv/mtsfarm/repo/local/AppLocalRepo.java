@@ -71,9 +71,7 @@ public class AppLocalRepo implements FarmRepository {
     @Override
     public Completable updateWeight(List<Weight> weights) {
         return Completable.fromCallable(() -> {
-            for (Weight weight : weights) {
-                weightDao.update(weight.key, weight.date, weight.weight);
-            }
+            weightDao.update(weights);
             return null;
         });
     }
@@ -81,9 +79,7 @@ public class AppLocalRepo implements FarmRepository {
     @Override
     public Completable updateTemperature(List<Temperature> temperatures) {
         return Completable.fromCallable(() -> {
-            for (Temperature temperature : temperatures) {
-                temperatureDao.updateTemperature(temperature.key, temperature.date, temperature.temperature);
-            }
+            temperatureDao.update(temperatures);
             return null;
         });
     }

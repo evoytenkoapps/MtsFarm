@@ -3,6 +3,7 @@ package com.example.evv.mtsfarm.repo.local.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.evv.mtsfarm.data.Temperature;
 import com.example.evv.mtsfarm.data.Weight;
@@ -17,8 +18,8 @@ public interface WeightDao {
     @Query("SELECT * FROM weight where id =:id")
     List<Weight> getWeight(int id);
 
-    @Query("UPDATE weight SET date=:date, weight=:weight WHERE `key`=:key")
-    void update(int key, String date, int weight);
+    @Update
+    void update(List<Weight> weights);
 
 }
 
