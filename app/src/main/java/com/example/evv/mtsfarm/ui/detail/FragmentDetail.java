@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.evv.mtsfarm.R;
@@ -67,13 +68,27 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         TableView tableWeight = (TableView) rootView.findViewById(R.id.table_weight);
         TableView tableTemperature = (TableView) rootView.findViewById(R.id.table_temperature);
 
+        LinearLayout layout = rootView.findViewById(R.id.table_milking);
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        params.width = -1;
+        params.height = 2000;
+        layout.setLayoutParams(params);
+
+        LinearLayout layout2 = rootView.findViewById(R.id.table_weight);
+        layout2.setLayoutParams(params);
+
+
+        LinearLayout layout3 = rootView.findViewById(R.id.table_temperature);
+        layout3.setLayoutParams(params);
+
+
         tableMilking.setDataAdapter(mAdapterMilking);
         TableColumnWeightModel columnModel = new TableColumnWeightModel(2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         tableMilking.setColumnModel(columnModel);
         SimpleTableHeaderAdapter headerAdapter = new SimpleTableHeaderAdapter(getActivity(), MILKING_HEADERS);
-        headerAdapter.setTextSize(10);
+        headerAdapter.setTextSize(5);
         tableMilking.setHeaderAdapter(headerAdapter);
 
         tableWeight.setDataAdapter(mAdapterWeight);
@@ -82,7 +97,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         columnModelWeight.setColumnWeight(2, 1);
         tableWeight.setColumnModel(columnModelWeight);
         SimpleTableHeaderAdapter headerlWeight = new SimpleTableHeaderAdapter(getActivity(), WEIGHT_HEADERS);
-        headerlWeight.setTextSize(10);
+        headerlWeight.setTextSize(5);
         tableWeight.setHeaderAdapter(headerlWeight);
 
         tableTemperature.setDataAdapter(mAdapterTemperature);
@@ -91,7 +106,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         columnModelTemp.setColumnWeight(2, 1);
         tableTemperature.setColumnModel(columnModelTemp);
         SimpleTableHeaderAdapter adapterTemp = new SimpleTableHeaderAdapter(getActivity(), TEMPERATURE_HEADERS);
-        adapterTemp.setTextSize(10);
+        adapterTemp.setTextSize(5);
         tableTemperature.setHeaderAdapter(adapterTemp);
 
         mBtnSaveMilking = rootView.findViewById(R.id.save_milking);
