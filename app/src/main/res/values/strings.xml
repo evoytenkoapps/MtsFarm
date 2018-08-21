@@ -11,4 +11,5 @@
     <string name="farm">"Ферма - "</string>
     <string name="herd">"Стадо - "</string>
     <string name="id">"ID - "</string>
+    <string name="cow_list">Список коров</string>
 </resources>

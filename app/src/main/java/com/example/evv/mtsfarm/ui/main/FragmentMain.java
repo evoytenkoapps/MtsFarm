@@ -3,6 +3,7 @@ package com.example.evv.mtsfarm.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,9 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         tableView.setSwipeToRefreshListener(mySwipe);
         mPb = rootView.findViewById(R.id.pb_main);
         tableView.addDataClickListener(new CowClickListener());
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.cow_list));
 
         return rootView;
     }
