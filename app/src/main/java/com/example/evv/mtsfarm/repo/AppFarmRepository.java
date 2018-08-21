@@ -67,17 +67,17 @@ public class AppFarmRepository implements FarmRepository {
 
     @Override
     public Completable updateMilking(List<Milking> milkings) {
-       return mLocal.updateMilking(milkings);
+        return mLocal.updateMilking(milkings);
     }
 
     @Override
-    public void updateWeight(List<Weight> weights) {
-
+    public Completable updateWeight(List<Weight> weights) {
+        return mLocal.updateWeight(weights);
     }
 
     @Override
-    public void updateTemperature(List<Temperature> temperatures) {
-
+    public Completable updateTemperature(List<Temperature> temperatures) {
+        return mLocal.updateTemperature(temperatures);
     }
 
 }

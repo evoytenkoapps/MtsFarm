@@ -136,22 +136,12 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
             switch (v.getId()) {
                 case R.id.save_milking:
                     mPresenter.saveMilking(mDataMilking);
-                    for (Milking milking : mDataMilking) {
-                        Log.d(TAG, String.valueOf(milking.date));
-                        Log.d(TAG, String.valueOf(milking.litters));
-                    }
                     break;
                 case R.id.save_weight:
-                    for (Weight weight : mDataWeight) {
-                        Log.d(TAG, String.valueOf(weight.date));
-                        Log.d(TAG, String.valueOf(weight.weight));
-                    }
+                    mPresenter.saveWeight(mDataWeight);
                     break;
                 case R.id.save_temperature:
-                    for (Temperature temperature : mDataTemperature) {
-                        Log.d(TAG, String.valueOf(temperature.date));
-                        Log.d(TAG, String.valueOf(temperature.temperature));
-                    }
+                    mPresenter.saveTemperature(mDataTemperature);
                     break;
             }
         }

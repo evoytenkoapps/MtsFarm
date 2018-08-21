@@ -71,13 +71,23 @@ public class AppLocalRepo implements FarmRepository {
 
 
     @Override
-    public void updateWeight(List<Weight> weights) {
-
+    public Completable updateWeight(List<Weight> weights) {
+        return Completable.fromCallable(() -> {
+            for (Weight weight : weights) {
+                weightDao.update(weight.key, weight.date, weight.weight);
+            }
+            return null;
+        });
     }
 
     @Override
-    public void updateTemperature(List<Temperature> temperatures) {
-
+    public Completable updateTemperature(List<Temperature> temperatures) {
+        return Completable.fromCallable(() -> {
+            for (Temperature temperature : temperatures) {
+                temperatureDao.updateTemperature(temperature.key, temperature.date, temperature.temperature);
+            }
+            return null;
+        });
     }
 
     public Single<Detail> getDetail(int id) {

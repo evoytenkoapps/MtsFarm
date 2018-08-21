@@ -26,8 +26,8 @@ public interface FarmRepository {
 
     Completable updateMilking(List<Milking> milkings);
 
-    void updateWeight(List<Weight> weights);
+    Completable updateWeight(List<Weight> weights);
 
-    void updateTemperature(List<Temperature> temperatures);
+    Completable updateTemperature(List<Temperature> temperatures);
 
 }

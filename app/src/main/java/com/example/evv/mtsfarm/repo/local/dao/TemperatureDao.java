@@ -17,4 +17,7 @@ public interface TemperatureDao {
 
     @Query("SELECT * FROM temperature where id =:id")
     List<Temperature> getTemperature(int id);
+
+    @Query("UPDATE temperature SET date=:date, temperature=:temperature WHERE `key`=:key")
+    void updateTemperature(int key, String date, double temperature);
 }

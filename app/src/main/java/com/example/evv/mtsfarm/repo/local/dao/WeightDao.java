@@ -17,5 +17,8 @@ public interface WeightDao {
     @Query("SELECT * FROM weight where id =:id")
     List<Weight> getWeight(int id);
 
+    @Query("UPDATE weight SET date=:date, weight=:weight WHERE `key`=:key")
+    void update(int key, String date, int weight);
+
 }
 

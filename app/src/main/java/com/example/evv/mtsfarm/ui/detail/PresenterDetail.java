@@ -61,12 +61,21 @@ public class PresenterDetail extends AppBasePresenter implements ContractDetail.
 
     @Override
     public void saveWeight(List<Weight> weights) {
-
+        addToDisp(mRepo.updateWeight(weights)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, throwable -> handleError(throwable, R.string.error_save_data))
+        );
     }
 
     @Override
     public void saveTemperature(List<Temperature> temperatures) {
-
+        addToDisp(mRepo.updateTemperature(temperatures)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, throwable -> handleError(throwable, R.string.error_save_data)));
     }
 
 
