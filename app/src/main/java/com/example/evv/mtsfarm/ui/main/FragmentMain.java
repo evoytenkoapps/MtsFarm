@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -63,7 +65,6 @@ public class FragmentMain extends Fragment implements ContractMain.View {
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.cow_list));
-
         return rootView;
     }
 
@@ -135,4 +136,8 @@ public class FragmentMain extends Fragment implements ContractMain.View {
         super.onStop();
         mPresenter.detouchView();
     }
+
+
+
+
 }
