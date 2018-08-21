@@ -4,12 +4,16 @@ import android.support.annotation.NonNull;
 
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Detail;
+import com.example.evv.mtsfarm.data.Milking;
 import com.example.evv.mtsfarm.data.Storage;
+import com.example.evv.mtsfarm.data.Temperature;
+import com.example.evv.mtsfarm.data.Weight;
 import com.example.evv.mtsfarm.repo.local.AppLocalRepo;
 import com.example.evv.mtsfarm.repo.remote.AppRepoRemote;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -59,6 +63,21 @@ public class AppFarmRepository implements FarmRepository {
     @Override
     public Single<Detail> getDetail() {
         return mLocal.getDetail(mId);
+    }
+
+    @Override
+    public Completable updateMilking(List<Milking> milkings) {
+       return mLocal.updateMilking(milkings);
+    }
+
+    @Override
+    public void updateWeight(List<Weight> weights) {
+
+    }
+
+    @Override
+    public void updateTemperature(List<Temperature> temperatures) {
+
     }
 
 }

@@ -17,4 +17,7 @@ public interface MilkingDao {
 
     @Query("SELECT * FROM milking where id =:id")
     List<Milking> getMilking(int id);
+
+    @Query("UPDATE milking SET date=:date, litters=:letters WHERE `key`=:key")
+    void updateMilking(int key, String date, int letters);
 }

@@ -7,4 +7,5 @@
     <string name="err_no_internet">Подключите интернет</string>
     <string name="save">Сохранить</string>
     <string name="error_load_detail">Ошибка загрузки детальных данных</string>
+    <string name="error_save_data">Ошибка сохранения файла</string>
 </resources>

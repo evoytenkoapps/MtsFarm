@@ -5,7 +5,10 @@ import android.util.Log;
 import com.example.evv.mtsfarm.App;
 import com.example.evv.mtsfarm.data.Cow;
 import com.example.evv.mtsfarm.data.Detail;
+import com.example.evv.mtsfarm.data.Milking;
 import com.example.evv.mtsfarm.data.Storage;
+import com.example.evv.mtsfarm.data.Temperature;
+import com.example.evv.mtsfarm.data.Weight;
 import com.example.evv.mtsfarm.repo.FarmRepository;
 import com.example.evv.mtsfarm.repo.local.dao.CowDao;
 import com.example.evv.mtsfarm.repo.local.dao.MilkingDao;
@@ -15,6 +18,7 @@ import com.example.evv.mtsfarm.repo.local.dao.WeightDao;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -55,17 +59,35 @@ public class AppLocalRepo implements FarmRepository {
         return null;
     }
 
+    @Override
+    public Completable updateMilking(List<Milking> milkings) {
+        return Completable.fromCallable(() -> {
+            for (Milking milking : milkings) {
+                milkingDao.updateMilking(milking.key, milking.date, milking.litters);
+            }
+            return null;
+        });
+    }
+
+
+    @Override
+    public void updateWeight(List<Weight> weights) {
+
+    }
+
+    @Override
+    public void updateTemperature(List<Temperature> temperatures) {
+
+    }
+
     public Single<Detail> getDetail(int id) {
-        return Single.fromCallable(new Callable<Detail>() {
-                                       @Override
-                                       public Detail call() throws Exception {
-                                           Detail result = new Detail();
-                                           result.setMilkings(milkingDao.getMilking(id));
-                                           result.setWeights(weightDao.getWeight(id));
-                                           result.setTemperatures(temperatureDao.getTemperature(id));
-                                           return result;
-                                       }
-                                   }
+        return Single.fromCallable(() -> {
+                    Detail result = new Detail();
+                    result.setMilkings(milkingDao.getMilking(id));
+                    result.setWeights(weightDao.getWeight(id));
+                    result.setTemperatures(temperatureDao.getTemperature(id));
+                    return result;
+                }
         );
     }
 

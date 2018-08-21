@@ -135,6 +135,7 @@ public class FragmentDetail extends Fragment implements ContractDetail.View {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.save_milking:
+                    mPresenter.saveMilking(mDataMilking);
                     for (Milking milking : mDataMilking) {
                         Log.d(TAG, String.valueOf(milking.date));
                         Log.d(TAG, String.valueOf(milking.litters));
